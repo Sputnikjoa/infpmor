@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejecutor SQL</title>
+</head>
+<body>
+    <h1>Ejecutor SQL</h1>
+    <form action="{{ url_for('ejecutor_sql') }}" method="post">
+        <textarea name="consulta_sql" placeholder="Escribe tu consulta SQL aquí..."></textarea>
+        <button type="submit">Ejecutar Consulta</button>
+    </form>
+
+    {% if error %}
+        <p style="color:red;">{{ error }}</p>
+    {% endif %}
+
+    {% if resultado %}
+        <pre>{{ resultado }}</pre>
+    {% endif %}
+</body>
+</html>

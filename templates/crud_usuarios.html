@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD de Usuarios</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #9e0000;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #630000;
+        }
+        .error-message, .success-message {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .error-message {
+            color: #ff0000;
+        }
+        .success-message {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <h1>CRUD de Usuarios</h1>
+
+    <!-- Formulario para buscar por Matrícula, Correo o CURP -->
+    <form action="{{ url_for('crud_usuarios') }}" method="post">
+        <input type="text" name="busqueda" placeholder="Ingrese matrícula, correo o CURP" required>
+        <button type="submit" name="buscar">Buscar</button>
+    </form>
+
+    {% if usuario %}
+    <h2>Actualizar Usuario</h2>
+    <form action="{{ url_for('crud_usuarios') }}" method="post">
+        <input type="hidden" name="usuario_id" value="{{ usuario[0] }}">
+        <input type="text" name="nombre" value="{{ usuario[1] }}" required>
+        <input type="text" name="apellido_paterno" value="{{ usuario[2] }}" required>
+        <input type="text" name="apellido_materno" value="{{ usuario[3] }}" required>
+        <input type="email" name="correo" value="{{ usuario[4] }}" required>
+        <input type="text" name="curp" value="{{ usuario[5] }}" required>
+        <button type="submit" name="actualizar">Actualizar Usuario</button>
+    </form>
+    {% endif %}
+
+    {% if mensaje %}
+    <div class="success-message">
+        <p>{{ mensaje }}</p>
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="error-message">
+        <p>{{ error }}</p>
+    </div>
+    {% endif %}
+</body>
+</html>

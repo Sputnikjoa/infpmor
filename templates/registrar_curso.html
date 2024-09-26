@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Curso</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        form {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #a72828;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #882121;
+        }
+        table {
+            width: 100%;
+            max-width: 1500px;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 20px 20px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #ff0000c4;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #e9ecef;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registrar Curso</h1>
+
+    <!-- Formulario para subir el archivo Excel -->
+    <form action="{{ url_for('registrar_curso') }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <button type="submit">Subir y Registrar Cursos</button>
+    </form>
+
+    <h2>Cursos Registrados</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Nombre del Curso</th>
+            <th>Matrícula del Usuario</th>
+            <th>Status</th>
+            <th>Folio</th>
+            <th>Fecha de Inicio</th>
+            <th>Fecha de Fin</th>
+            <th>Link</th>
+            <th>Fecha de Creación</th>
+        </tr>
+        {% for curso in cursos_usuario %}
+        <tr>
+            <td>{{ curso[0] }}</td>
+            <td>{{ curso[1] }}</td>
+            <td>{{ curso[2] }}</td>
+            <td>{{ curso[3] }}</td>
+            <td>{{ curso[4] }}</td>
+            <td>{{ curso[5] }}</td>
+            <td>{{ curso[6] }}</td>
+            <td><a href="{{ curso[7] }}" target="_blank">{{ curso[7] }}</a></td>
+            <td>{{ curso[8] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h3><a href="{{ url_for('uploaded_file', filename='example.xlsx') }}">Descargar archivo Excel de ejemplo</a></h3>
+</body>
+</html>

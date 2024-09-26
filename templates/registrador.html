@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Usuario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin: 20px 0;
+            width: 80%;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], input[type="email"] {
+            width: 80%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #a72828;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #530000;
+        }
+        .error-message {
+            color: #ff0000;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .success-message {
+            color: #028320;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Registrar Usuario</h1>
+
+    <form action="{{ url_for('registrador') }}" method="post">
+        <input type="text" name="nombre" placeholder="Nombre" required>
+        <input type="text" name="apellido_paterno" placeholder="Apellido Paterno" required>
+        <input type="text" name="apellido_materno" placeholder="Apellido Materno" required>
+        <input type="text" name="curp" placeholder="CURP" required>
+        <input type="email" name="correo" placeholder="Correo Electrónico" required>
+        <br>
+        <button type="submit">Registrar Usuario</button>
+    </form>
+
+    {% if error %}
+    <div class="error-message">
+        <p>{{ error }}</p>
+    </div>
+    {% endif %}
+
+    {% if matricula %}
+    <div class="success-message">
+        <p>Usuario registrado exitosamente. Matrícula generada: <strong>{{ matricula }}</strong></p>
+    </div>
+    {% endif %}
+</body>
+</html>

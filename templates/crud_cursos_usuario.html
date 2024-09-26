@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD de Cursos de Usuario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"], input[type="date"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #ac0000;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #800808;
+        }
+        .error-message, .success-message {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .error-message {
+            color: #ff0000;
+        }
+        .success-message {
+            color: #28a745;
+        }
+    </style>
+</head>
+<body>
+    <h1>CRUD de Cursos de Usuario</h1>
+
+    <!-- Formulario para buscar por ID -->
+    <form action="{{ url_for('crud_cursos_usuario') }}" method="post">
+        <input type="text" name="curso_id" placeholder="Ingrese el ID del curso" required>
+        <button type="submit" name="buscar">Buscar</button>
+    </form>
+
+    {% if curso %}
+    <h2>Actualizar Curso</h2>
+    <form action="{{ url_for('crud_cursos_usuario') }}" method="post">
+        <input type="hidden" name="curso_id" value="{{ curso[0] }}">
+        <input type="text" name="nombre_curso" value="{{ curso[1] }}" required>
+        <input type="text" name="matricula_usuario" value="{{ curso[2] }}" required>
+        <input type="text" name="status" value="{{ curso[3] }}" required>
+        <input type="text" name="folio" value="{{ curso[4] }}" required>
+        <input type="date" name="fecha_inicio" value="{{ curso[5] }}" required>
+        <input type="date" name="fecha_fin" value="{{ curso[6] }}" required>
+        <input type="text" name="link" value="{{ curso[7] }}">
+        <button type="submit" name="actualizar">Actualizar Curso</button>
+    </form>
+    {% endif %}
+
+    {% if mensaje %}
+    <div class="success-message">
+        <p>{{ mensaje }}</p>
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="error-message">
+        <p>{{ error }}</p>
+    </div>
+    {% endif %}
+</body>
+</html>

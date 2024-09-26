@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultas de Matrícula</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        form {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #ff00009f;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #81000071;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #ff000071;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #e9ecef;
+        }
+        .error-message {
+            color: #ff0000;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Consulta de Matrícula o Correo</h1>
+
+    <!-- Formulario para buscar por matrícula o correo -->
+    <form action="{{ url_for('consultas') }}" method="post">
+        <input type="text" name="busqueda" placeholder="Ingrese matrícula, correo o CURP" required>
+        <br>
+        <button type="submit">Buscar</button>
+    </form>
+
+    {% if error %}
+    <div class="error-message">
+        <p>{{ error }}</p>
+    </div>
+    {% endif %}
+
+    {% if usuario %}
+        <h2>Información del Usuario</h2>
+        <p><strong>Nombre:</strong> {{ usuario[0] }} {{ usuario[1] }} {{ usuario[2] }}</p>
+        <p><strong>Correo:</strong> {{ usuario[3] }}</p>
+        <p><strong>Matrícula:</strong> {{ usuario[4] }}</p>
+        <p><strong>CURP:</strong> {{ usuario[5] }}</p>
+
+        {% if cursos_usuario %}
+            <h2>Cursos Registrados</h2>
+            <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre del Curso</th>
+                    <th>Matrícula del Usuario</th>
+                    <th>Status</th>
+                    <th>Folio</th>
+                    <th>Fecha de Inicio</th>
+                    <th>Fecha de Fin</th>
+                    <th>Link</th>
+                    <th>Fecha de Creación</th>
+                </tr>
+                {% for curso in cursos_usuario %}
+                <tr>
+                    <td>{{ curso[0] }}</td>
+                    <td>{{ curso[1] }}</td>
+                    <td>{{ curso[2] }}</td>
+                    <td>{{ curso[3] }}</td>
+                    <td>{{ curso[4] }}</td>
+                    <td>{{ curso[5] }}</td>
+                    <td>{{ curso[6] }}</td>
+                    <td><a href="{{ curso[7] }}" target="_blank">{{ curso[7] }}</a></td>
+                    <td>{{ curso[8] }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% else %}
+            <p>No se encontraron cursos registrados para esta matrícula.</p>
+        {% endif %}
+    {% else %}
+        <p>No se encontró ningún usuario con la matrícula, correo o CURP proporcionados.</p>
+    {% endif %}
+</body>
+</html>
